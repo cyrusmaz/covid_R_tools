@@ -1,0 +1,145 @@
+---
+title: "Example of wrangling and plotting COVID-19 data"
+author: "Cyrus Maz"
+date: "07/04/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+
+```{r echo=FALSE, messages=FALSE, warning=FALSE, include=FALSE}
+source("covid_R_tools.R")
+
+```
+
+```{r eval=FALSE}
+source("covid_R_tools.R")
+```
+
+
+```{r}
+cases_df=update_cases_df()
+deaths_df=update_deaths_df()
+
+country_names=c("Canada", "Australia", "Italy", "France", "Vietnam")
+
+countries_cases=get_counts_by_country(cases_df,country_names)
+countries_deaths_df=get_counts_by_country(deaths_df,country_names)
+
+```
+
+
+\newpage
+# Logarithmic Chart of cases in Canada, Australia, Italy, France, Vietnam
+```{r}
+plot_log(countries_cases,lab="Cases")
+
+```
+
+
+\newpage
+# Linear Chart of cases in Canada, Australia, Italy, France, Vietnam
+```{r}
+plot_linear(df=countries_cases,lab="Cases")
+```
+
+
+\newpage
+# Logarithmic Chart of Deaths in Canada, Australia, Italy, France, Vietnam
+```{r}
+plot_log(countries_deaths_df,lab="Deaths")
+```
+
+
+\newpage
+# Logarithmic Chart of Deaths in Canada
+```{r}
+plot_linear(df=countries_deaths_df,lab="Deaths")
+```
+
+
+\newpage
+```{r}
+country_name="Canada"
+Canada_cases=get_counts_by_country(cases_df,country_name)
+
+Canada_deaths=get_counts_by_country(deaths_df,country_name)
+
+
+```
+
+
+# Logarithmic Chart of Cases in Canada
+```{r}
+plot_log(Canada_cases,lab="Cases")
+```
+
+
+\newpage
+# Linear Chart of Deaths in Canada
+```{r}
+plot_linear(Canada_cases, lab="Cases")
+```
+
+
+\newpage
+# Logarithmic Chart of Deaths in Canada
+```{r}
+plot_log(Canada_deaths,lab="Deaths")
+```
+
+
+\newpage
+# Linear Chart of Deaths in Canada
+```{r}
+plot_linear(Canada_deaths, lab="Deaths")
+```
+
+\newpage
+# Get the provincial case/death counts 
+```{r}
+provinces_cases=get_counts_by_provinces(cases_df,country_name)
+provinces_deaths=get_counts_by_provinces(deaths_df,country_name)
+
+```
+
+
+# Logarithmic Chart of Cases in Ontario, Quebec, and BC
+```{r}
+plot_log(provinces_cases,
+         provinces=c("Canada_Ontario", "Canada_Quebec","Canada_British Columbia"), 
+         lab="Cases")
+```
+
+
+\newpage
+# Linear Chart of Cases in Ontario, Quebec, and BC
+```{r}
+plot_linear(provinces_cases,
+            provinces=c("Canada_Ontario", "Canada_Quebec","Canada_British Columbia"), 
+            lab="Cases")
+```
+
+
+\newpage
+# Logarithmic Chart of Deaths in Ontario, Quebec, and BC
+```{r}
+plot_log(provinces_deaths,
+         provinces=c("Canada_Ontario", "Canada_Quebec","Canada_British Columbia"), 
+         lab="Deaths")
+```
+
+\newpage
+# Linear Chart of Deaths in Ontario, Quebec, and BC
+```{r}
+plot_linear(provinces_deaths, 
+            provinces=c("Canada_Ontario", "Canada_Quebec","Canada_British Columbia"), 
+            lab="Deaths")
+```
+
